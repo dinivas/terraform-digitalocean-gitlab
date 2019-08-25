@@ -1,28 +1,3 @@
-# Terraform Openstack Jenkins
-
-Terraform module that install Jenkins in Openstack using provided infos
-
-## Examples
-
-```
-module "jenkins" {
-  source = "../../"
-
-  enable_jenkins_master              = "1"
-  jenkins_master_name                = "jenkins-test"
-  jenkins_master_instance_count      = 1
-  jenkins_master_image_name          = "Jenkins Master"
-  jenkins_master_compute_flavor_name = "dinivas.large"
-  jenkins_master_keypair_name        = "my-keypair"
-  jenkins_master_network             = "my-network"
-  jenkins_master_subnet              = "my-subnet"
-  jenkins_master_floating_ip_pool    = ""
-}
-```
-
-## Inputs
-
-```
 
 variable "enable_jenkins_master" {
   type    = "string"
@@ -88,19 +63,3 @@ variable "jenkins_master_metadata" {
   default = {}
 }
 
-
-
-```
-
-## Outputs
-
-```
-output "jenkins_master_instance_ids" {
-  value = "${module.jenkins_master_instance.ids}"
-}
-
-output "jenkins_master_floating_ip" {
-  value       = "${openstack_networking_floatingip_v2.jenkins_master_floatingip}"
-  description = "The floating ips bind to Jenkins master"
-}
-```
