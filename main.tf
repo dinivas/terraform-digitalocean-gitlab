@@ -28,6 +28,7 @@ module "jenkins_master_instance" {
   //security_groups_to_associate  = ["${var.jenkins_master_security_groups_to_associate}"]
 }
 
+// Conditional floating ip
 resource "openstack_networking_floatingip_v2" "jenkins_master_floatingip" {
   count = "${var.jenkins_master_floating_ip_pool != "" ? var.enable_jenkins_master * 1 : 0}"
 

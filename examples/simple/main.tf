@@ -11,7 +11,8 @@ module "jenkins" {
   jenkins_master_image_name          = "Jenkins Master"
   jenkins_master_compute_flavor_name = "dinivas.large"
   jenkins_master_keypair_name        = "${openstack_compute_keypair_v2.keypair.name}"
-  jenkins_master_network             = "mlpojk-mgmt"
-  jenkins_master_subnet              = "mlpojk-mgmt-subnet"
+  jenkins_master_network             = "dnv-mgmt"
+  jenkins_master_subnet              = "dnv-mgmt-subnet"
   jenkins_master_floating_ip_pool    = ""
 }
+

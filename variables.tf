@@ -24,7 +24,6 @@ variable "jenkins_master_compute_flavor_name" {
   type        = "string"
 }
 
-
 variable "jenkins_master_keypair_name" {
   description = "The Keypair name of the master instance"
   type        = "string"
@@ -35,7 +34,6 @@ variable "jenkins_master_floating_ip_pool" {
   type        = "string"
   default     = ""
 }
-
 
 variable "jenkins_master_network" {
   description = "The Network name of the master instance"
@@ -63,3 +61,19 @@ variable "jenkins_master_metadata" {
   default = {}
 }
 
+variable "jenkins_external_master_url" {
+  description = "The URL of the existing Jenkins master"
+  type        = "string"
+  default     = ""
+}
+variable "jenkins_master_username" {
+  description = "The username of the Jenkins master"
+  type        = "string"
+  default     = ""
+}
+
+variable "jenkins_master_password" {
+  description = "The password of the Jenkins master"
+  type        = "string"
+  default     = ""
+}
