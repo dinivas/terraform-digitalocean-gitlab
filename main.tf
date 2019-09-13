@@ -11,9 +11,7 @@ data "openstack_networking_subnet_v2" "jenkins_master_subnet" {
 }
 
 module "jenkins_master_instance" {
-  #source = "github.com/dinivas/terraform-openstack-instance"
-
-  source = "../terraform-os-compute"
+  source = "github.com/dinivas/terraform-openstack-instance"
 
   instance_name                 = "${var.jenkins_master_name}-master"
   instance_count                = "${var.jenkins_master_instance_count}"
