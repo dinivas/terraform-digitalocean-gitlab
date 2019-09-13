@@ -11,7 +11,9 @@ data "openstack_networking_subnet_v2" "jenkins_master_subnet" {
 }
 
 module "jenkins_master_instance" {
-  source = "github.com/dinivas/terraform-openstack-instance"
+  #source = "github.com/dinivas/terraform-openstack-instance"
+
+  source = "../terraform-os-compute"
 
   instance_name                 = "${var.jenkins_master_name}-master"
   instance_count                = "${var.jenkins_master_instance_count}"
@@ -22,6 +24,7 @@ module "jenkins_master_instance" {
   subnet_ids                    = ["${data.openstack_networking_subnet_v2.jenkins_master_subnet.*.id}"]
   instance_security_group_name  = "${var.jenkins_master_name}-sg"
   instance_security_group_rules = "${var.jenkins_master_security_group_rules}"
+  security_groups_to_associate  = "${var.jenkins_master_security_groups_to_associate}"
   metadata                      = "${var.jenkins_master_metadata}"
   enabled                       = "${var.enable_jenkins_master}"
 

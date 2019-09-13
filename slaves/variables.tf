@@ -45,3 +45,9 @@ variable "jenkins_slave_keypair" {
   type        = "string"
   description = "The slave group keypair to use"
 }
+
+variable "jenkins_slave_security_groups_to_associate" {
+  type        = list(string)
+  default     = []
+  description = "List of existing security groups to associate to Jenkins slave."
+}

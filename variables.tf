@@ -47,13 +47,22 @@ variable "jenkins_master_subnet" {
 
 variable "jenkins_master_security_group_rules" {
   type        = list(map(any))
-  default     = []
+  default     = [
+    {
+      direction        = "ingress"
+      ethertype        = "IPv4"
+      protocol         = "tcp"
+      port_range_min   = 8080
+      port_range_max   = 8080
+      remote_ip_prefix = ""
+  }
+  ]
   description = "The definition os security groups to associate to instance. Only one is allowed"
 }
 
 variable "jenkins_master_security_groups_to_associate" {
-  type        = "string"
-  default     = ""
+  type        = list(string)
+  default     = []
   description = "List of existing security groups to associate to Jenkins masters."
 }
 
