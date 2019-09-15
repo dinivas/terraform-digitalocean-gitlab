@@ -35,6 +35,12 @@ variable "jenkins_master_floating_ip_pool" {
   default     = ""
 }
 
+variable "jenkins_master_availability_zone" {
+  description = "The availability zone"
+  type        = "string"
+  default     = "null"
+}
+
 variable "jenkins_master_network" {
   description = "The Network name of the master instance"
   type        = "string"

@@ -25,6 +25,7 @@ module "jenkins_master_instance" {
   security_groups_to_associate  = "${var.jenkins_master_security_groups_to_associate}"
   metadata                      = "${var.jenkins_master_metadata}"
   enabled                       = "${var.enable_jenkins_master}"
+  availability_zone             = "${var.jenkins_master_availability_zone}"
 
   //security_groups_to_associate  = ["${var.jenkins_master_security_groups_to_associate}"]
 }

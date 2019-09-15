@@ -28,4 +28,5 @@ resource "openstack_compute_instance_v2" "slave_group" {
   network {
     name = "${var.jenkins_slave_network}"
   }
+  availability_zone = "${var.jenkins_slave_availability_zone}"
 }

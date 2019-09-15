@@ -22,6 +22,12 @@ variable "jenkins_slave_group_labels" {
   description = "The slave group labels separated by ,"
 }
 
+variable "jenkins_slave_availability_zone" {
+  description = "The availability zone"
+  type        = "string"
+  default     = "null"
+}
+
 variable "jenkins_slave_group_instance_count" {
   type        = "string"
   description = "The slave group instance count"
