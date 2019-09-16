@@ -52,8 +52,8 @@ write_files:
 -   content: |
         #!/bin/sh
 
-        # Wait for master to be accessible, used when master and slave are created at the same time
-        timeout ${jenkins_slave_wait_for_master_timeout} bash -c 'until printf "" 2>>/dev/null >>/dev/tcp/$0/$1; do sleep 5; done' ${jenkins_master_url} 8080
+        # Wait for master to be accessible (http: 200), used when master and slave are created at the same time
+        timeout ${jenkins_slave_wait_for_master_timeout} bash -c 'while [[ "$(curl -s -o /dev/null -w ''%%{http_code}'' ${jenkins_master_url}:8080)" != "200" ]]; do sleep 5; done' || false
 
         # Download slave.jar from master
         wget "http://${jenkins_master_url}:8080/jnlpJars/slave.jar" -O /var/run/jenkins/slave.jar
