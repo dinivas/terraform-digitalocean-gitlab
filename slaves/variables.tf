@@ -57,3 +57,9 @@ variable "jenkins_slave_security_groups_to_associate" {
   default     = []
   description = "List of existing security groups to associate to Jenkins slave."
 }
+
+variable "jenkins_slave_wait_for_master_timeout" {
+  type        = "string"
+  description = "Timeout in second to wait for Jenkins master to be accessible"
+  default     = "600" # 10min
+}

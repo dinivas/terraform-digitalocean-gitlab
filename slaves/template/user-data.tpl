@@ -8,7 +8,6 @@ groups:
 runcmd:
   - [ useradd, -g, jenkins, jenkins]
   - [ mkdir, -p, /var/run/jenkins/]
-  - [ wget, "http://${jenkins_master_url}:8080/jnlpJars/slave.jar", -O, /var/run/jenkins/slave.jar ]
   - [ sh, -c, /etc/register-slave.sh]
 write_files:
 -   content: |
@@ -52,6 +51,12 @@ write_files:
     permissions: '755'
 -   content: |
         #!/bin/sh
+
+        # Wait for master to be accessible, used when master and slave are created at the same time
+        timeout ${jenkins_slave_wait_for_master_timeout} bash -c 'until printf "" 2>>/dev/null >>/dev/tcp/$0/$1; do sleep 5; done' ${jenkins_master_url} 8080
+
+        # Download slave.jar from master
+        wget "http://${jenkins_master_url}:8080/jnlpJars/slave.jar" -O /var/run/jenkins/slave.jar
 
         # Remote create the agent
         curl -X POST -u ${jenkins_master_username}:${jenkins_master_password} --data-urlencode "script=$(< /var/run/jenkins/add_slave.groovy)" http://${jenkins_master_url}:8080/scriptText

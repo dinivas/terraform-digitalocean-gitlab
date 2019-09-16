@@ -6,13 +6,14 @@ data "template_file" "user_data" {
   template = "${file("${path.module}/template/user-data.tpl")}"
 
   vars = {
-    jenkins_master_url        = "${var.jenkins_master_url}"
-    jenkins_node_name         = "${format("%s-%s", var.jenkins_slave_group_name, count.index)}"
-    jenkins_slave_description = "${format("Dinivas managed Jenkins slave: %s-%s", var.jenkins_slave_group_name, count.index)}"
-    jenkins_slave_nb_executor = 2
-    jenkins_slave_labels      = "${join(" ", split(",", var.jenkins_slave_group_labels))}"
-    jenkins_master_username   = "${var.jenkins_master_username}"
-    jenkins_master_password   = "${var.jenkins_master_password}"
+    jenkins_master_url                    = "${var.jenkins_master_url}"
+    jenkins_node_name                     = "${format("%s-%s", var.jenkins_slave_group_name, count.index)}"
+    jenkins_slave_description             = "${format("Dinivas managed Jenkins slave: %s-%s", var.jenkins_slave_group_name, count.index)}"
+    jenkins_slave_nb_executor             = 2
+    jenkins_slave_labels                  = "${join(" ", split(",", var.jenkins_slave_group_labels))}"
+    jenkins_master_username               = "${var.jenkins_master_username}"
+    jenkins_master_password               = "${var.jenkins_master_password}"
+    jenkins_slave_wait_for_master_timeout = "${var.jenkins_slave_wait_for_master_timeout}"
   }
 }
 
