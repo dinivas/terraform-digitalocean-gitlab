@@ -3,9 +3,20 @@ variable "jenkins_slave_group_name" {
   description = "The slave group name"
 }
 
-variable "jenkins_master_url" {
+variable "jenkins_master_scheme" {
   type        = "string"
-  description = "The Jenkins master URL"
+  description = "The Jenkins master URL scheme"
+}
+
+variable "jenkins_master_host" {
+  type        = "string"
+  description = "The Jenkins master host"
+}
+
+variable "jenkins_master_port" {
+  type        = "string"
+  description = "The Jenkins master port"
+  default = "8080"
 }
 
 variable "jenkins_master_username" {

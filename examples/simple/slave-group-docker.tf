@@ -1,7 +1,9 @@
 module "jenkins-slave" {
   source = "../../slaves"
 
-  jenkins_master_url = "http://localhost:8080"
+  jenkins_master_scheme = "http"
+  jenkins_master_host = "localhost"
+  jenkins_master_port = "8080"
   jenkins_master_username = "admin"
   jenkins_master_password = "password"
   jenkins_slave_group_name = "dnv-jenkins-slave-docker"
