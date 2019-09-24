@@ -92,3 +92,15 @@ variable "jenkins_master_password" {
   type        = "string"
   default     = ""
 }
+
+variable "jenkins_master_use_keycloak" {
+  type    = "string"
+  description = "Delegate Jenkins Auth to Keycloak"
+  default = "0"
+}
+
+variable "jenkins_master_keycloak_config" {
+  type    = "string"
+  description = "Keycloak Json config when Auth is delegated to Keycloak"
+  default = ""
+}

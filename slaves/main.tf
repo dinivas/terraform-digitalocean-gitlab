@@ -1,6 +1,6 @@
 // ############# Slaves #####################
 
-data "template_file" "user_data" {
+data "template_file" "slave_user_data" {
   count = "${var.jenkins_slave_group_instance_count}"
 
   template = "${file("${path.module}/template/user-data.tpl")}"
@@ -26,7 +26,7 @@ resource "openstack_compute_instance_v2" "slave_group" {
   image_name      = "${var.jenkins_slave_group_cloud_image}"
   flavor_name     = "${var.jenkins_slave_group_cloud_flavor}"
   key_pair        = "${var.jenkins_slave_keypair}"
-  user_data       = "${lookup(data.template_file.user_data[count.index], "rendered")}"
+  user_data       = "${lookup(data.template_file.slave_user_data[count.index], "rendered")}"
   security_groups = "${var.jenkins_slave_security_groups_to_associate}"
   network {
     name = "${var.jenkins_slave_network}"

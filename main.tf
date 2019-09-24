@@ -10,6 +10,18 @@ data "openstack_networking_subnet_v2" "jenkins_master_subnet" {
   name = "${var.jenkins_master_subnet}"
 }
 
+
+data "template_file" "master_user_data" {
+  count = "${var.jenkins_master_instance_count}"
+
+  template = "${file("${path.module}/template/user-data.tpl")}"
+
+  vars = {
+    jenkins_master_use_keycloak      = "${var.jenkins_master_use_keycloak}"
+    jenkins_master_keycloak_config   = "${var.jenkins_master_keycloak_config}"
+  }
+}
+
 module "jenkins_master_instance" {
   source = "github.com/dinivas/terraform-openstack-instance"
 
