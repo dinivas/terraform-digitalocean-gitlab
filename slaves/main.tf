@@ -6,9 +6,9 @@ data "template_file" "slave_user_data" {
   template = "${file("${path.module}/template/user-data.tpl")}"
 
   vars = {
-    jenkins_master_scheme                    = "${var.jenkins_master_scheme}"
-    jenkins_master_host                    = "${var.jenkins_master_host}"
-    jenkins_master_port                    = "${var.jenkins_master_port}"
+    jenkins_master_scheme                 = "${var.jenkins_master_scheme}"
+    jenkins_master_host                   = "${var.jenkins_master_host}"
+    jenkins_master_port                   = "${var.jenkins_master_port}"
     jenkins_node_name                     = "${format("%s-%s", var.jenkins_slave_group_name, count.index)}"
     jenkins_slave_description             = "${format("Dinivas managed Jenkins slave: %s-%s", var.jenkins_slave_group_name, count.index)}"
     jenkins_slave_nb_executor             = 2

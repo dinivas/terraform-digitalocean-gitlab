@@ -17,8 +17,8 @@ data "template_file" "master_user_data" {
   template = "${file("${path.module}/template/user-data.tpl")}"
 
   vars = {
-    jenkins_master_use_keycloak      = "${var.jenkins_master_use_keycloak}"
-    jenkins_master_keycloak_config   = "${var.jenkins_master_keycloak_config}"
+    jenkins_master_use_keycloak    = "${var.jenkins_master_use_keycloak}"
+    jenkins_master_keycloak_config = "${var.jenkins_master_keycloak_config}"
   }
 }
 
