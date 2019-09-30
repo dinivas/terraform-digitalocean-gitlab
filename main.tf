@@ -17,8 +17,9 @@ data "template_file" "master_user_data" {
   template = "${file("${path.module}/template/user-data.tpl")}"
 
   vars = {
-    jenkins_master_use_keycloak    = "${var.jenkins_master_use_keycloak}"
-    jenkins_master_keycloak_config = "${var.jenkins_master_keycloak_config}"
+    jenkins_master_use_keycloak                = "${var.jenkins_master_use_keycloak}"
+    jenkins_master_keycloak_config             = "${var.jenkins_master_keycloak_config}"
+    jenkins_master_register_exporter_to_consul = "${var.jenkins_master_register_exporter_to_consul}"
   }
 }
 
@@ -39,7 +40,6 @@ module "jenkins_master_instance" {
   enabled                       = "${var.enable_jenkins_master}"
   availability_zone             = "${var.jenkins_master_availability_zone}"
 
-  //security_groups_to_associate  = ["${var.jenkins_master_security_groups_to_associate}"]
 }
 
 // Conditional floating ip

@@ -1,6 +1,8 @@
 #cloud-config
 # vim: syntax=yaml
 
+runcmd:
+  - [ useradd, -g, jenkins, jenkins]
 write_files:
  %{ if jenkins_master_use_keycloak == "1" }
 -   content: |
@@ -20,4 +22,17 @@ write_files:
 
     path: /var/lib/jenkins/init.groovy.d/setup_keycloak.groovy
     permissions: '755'
+%{ endif }
+ %{ if jenkins_master_register_exporter_to_consul == "1" }
+-   content: |
+        {"service":
+            {"name": "jenkins_exporter",
+            "tags": ["monitor"],
+            "port": 9118
+            }
+        }
+
+    owner: consul:consul
+    path: /etc/consul/consul.d/jenkins_exporter-service.json
+    permissions: '644'
 %{ endif }

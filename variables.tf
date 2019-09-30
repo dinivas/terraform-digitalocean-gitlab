@@ -1,4 +1,3 @@
-
 variable "enable_jenkins_master" {
   type    = "string"
   default = "1"
@@ -52,8 +51,8 @@ variable "jenkins_master_subnet" {
 }
 
 variable "jenkins_master_security_group_rules" {
-  type        = list(map(any))
-  default     = [
+  type = list(map(any))
+  default = [
     {
       direction        = "ingress"
       ethertype        = "IPv4"
@@ -61,7 +60,7 @@ variable "jenkins_master_security_group_rules" {
       port_range_min   = 8080
       port_range_max   = 8080
       remote_ip_prefix = ""
-  }
+    }
   ]
   description = "The definition os security groups to associate to instance. Only one is allowed"
 }
@@ -94,13 +93,24 @@ variable "jenkins_master_password" {
 }
 
 variable "jenkins_master_use_keycloak" {
-  type    = "string"
+  type        = "string"
   description = "Delegate Jenkins Auth to Keycloak"
-  default = "0"
+  default     = "0"
 }
 
 variable "jenkins_master_keycloak_config" {
-  type    = "string"
+  type        = "string"
   description = "Keycloak Json config when Auth is delegated to Keycloak"
-  default = ""
+  default     = ""
+}
+
+variable "jenkins_master_register_exporter_to_consul" {
+  type        = "string"
+  description = "Register Jenkins exporter to consul (default true)"
+  default     = "1"
+}
+
+variable "consul_join_adresses" {
+  type        = list(string)
+  description = "List of adress used to join consul cluster"
 }
