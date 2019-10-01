@@ -109,8 +109,3 @@ variable "jenkins_master_register_exporter_to_consul" {
   description = "Register Jenkins exporter to consul (default true)"
   default     = "1"
 }
-
-variable "consul_join_adresses" {
-  type        = list(string)
-  description = "List of adress used to join consul cluster"
-}
