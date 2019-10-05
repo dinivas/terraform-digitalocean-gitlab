@@ -17,6 +17,7 @@ data "template_file" "master_user_data" {
   template = "${file("${path.module}/template/user-data.tpl")}"
 
   vars = {
+    jenkins_master_name                        = "${var.jenkins_master_name}"
     jenkins_master_use_keycloak                = "${var.jenkins_master_use_keycloak}"
     jenkins_master_keycloak_config             = "${var.jenkins_master_keycloak_config}"
     jenkins_master_register_exporter_to_consul = "${var.jenkins_master_register_exporter_to_consul}"
@@ -26,7 +27,7 @@ data "template_file" "master_user_data" {
 module "jenkins_master_instance" {
   source = "github.com/dinivas/terraform-openstack-instance"
 
-  instance_name                 = "${var.jenkins_master_name}-master"
+  instance_name                 = "${var.jenkins_master_name}"
   instance_count                = "${var.jenkins_master_instance_count}"
   image_name                    = "${var.jenkins_master_image_name}"
   flavor_name                   = "${var.jenkins_master_compute_flavor_name}"
