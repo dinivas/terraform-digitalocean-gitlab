@@ -31,7 +31,7 @@ write_files:
             }
         }
 
-    owner: consul:consul
+    owner: consul:bin
     path: /etc/consul/consul.d/jenkins-service.json
     permissions: '644'
  %{ if jenkins_master_register_exporter_to_consul == "1" }
@@ -43,7 +43,7 @@ write_files:
             }
         }
 
-    owner: consul:consul
+    owner: consul:bin
     path: /etc/consul/consul.d/jenkins_exporter-service.json
     permissions: '644'
 %{ endif }
