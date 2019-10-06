@@ -21,6 +21,15 @@ data "template_file" "master_user_data" {
     jenkins_master_use_keycloak                = "${var.jenkins_master_use_keycloak}"
     jenkins_master_keycloak_config             = "${var.jenkins_master_keycloak_config}"
     jenkins_master_register_exporter_to_consul = "${var.jenkins_master_register_exporter_to_consul}"
+    consul_agent_mode                          = "client"
+    consul_cluster_domain                      = "${var.project_consul_domain}"
+    consul_cluster_datacenter                  = "${var.project_consul_datacenter}"
+    consul_cluster_name                        = "${var.project_name}-consul"
+    os_auth_domain_name                        = "${var.os_auth_domain_name}"
+    os_auth_username                           = "${var.os_auth_username}"
+    os_auth_password                           = "${var.os_auth_password}"
+    os_auth_url                                = "${var.os_auth_url}"
+    os_project_id                              = "${var.os_project_id}"
   }
 }
 
@@ -37,7 +46,8 @@ module "jenkins_master_instance" {
   instance_security_group_name  = "${var.jenkins_master_name}-sg"
   instance_security_group_rules = "${var.jenkins_master_security_group_rules}"
   security_groups_to_associate  = "${var.jenkins_master_security_groups_to_associate}"
-  metadata                      = "${var.jenkins_master_metadata}"
+  user_data                     = "${data.template_file.master_user_data.0.rendered}"
+  metadata                      = "${merge(var.jenkins_master_metadata, map("consul_cluster_name", format("%s-%s", var.project_name, "consul")))}"
   enabled                       = "${var.enable_jenkins_master}"
   availability_zone             = "${var.jenkins_master_availability_zone}"
 

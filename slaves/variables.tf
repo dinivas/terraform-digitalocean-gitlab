@@ -36,7 +36,6 @@ variable "jenkins_slave_group_labels" {
 variable "jenkins_slave_availability_zone" {
   description = "The availability zone"
   type        = "string"
-  default     = "null"
 }
 
 variable "jenkins_slave_group_instance_count" {

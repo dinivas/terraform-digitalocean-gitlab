@@ -3,6 +3,11 @@ variable "enable_jenkins_master" {
   default = "1"
 }
 
+variable "project_name" {
+  description = "The project this Jenkins belong to"
+  type        = "string"
+}
+
 variable "jenkins_master_name" {
   description = "The name of the master instance"
   type        = "string"
@@ -52,16 +57,7 @@ variable "jenkins_master_subnet" {
 
 variable "jenkins_master_security_group_rules" {
   type = list(map(any))
-  default = [
-    {
-      direction        = "ingress"
-      ethertype        = "IPv4"
-      protocol         = "tcp"
-      port_range_min   = 8080
-      port_range_max   = 8080
-      remote_ip_prefix = ""
-    }
-  ]
+  default = []
   description = "The definition os security groups to associate to instance. Only one is allowed"
 }
 
@@ -108,4 +104,39 @@ variable "jenkins_master_register_exporter_to_consul" {
   type        = "string"
   description = "Register Jenkins exporter to consul (default true)"
   default     = "1"
+}
+
+# Project Consul variables
+
+variable "project_consul_domain" {
+  type        = "string"
+  description = "The domain name to use for the Consul cluster"
+}
+
+variable "project_consul_datacenter" {
+  type        = "string"
+  description = "The datacenter name for the consul cluster"
+}
+
+# Auth variables used by consul
+
+variable "os_auth_domain_name" {
+  type    = "string"
+  default = "default"
+}
+
+variable "os_auth_username" {
+  type = "string"
+}
+
+variable "os_auth_password" {
+  type = "string"
+}
+
+variable "os_auth_url" {
+  type = "string"
+}
+
+variable "os_project_id" {
+  type = "string"
 }
