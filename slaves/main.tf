@@ -16,6 +16,15 @@ data "template_file" "slave_user_data" {
     jenkins_master_username               = "${var.jenkins_master_username}"
     jenkins_master_password               = "${var.jenkins_master_password}"
     jenkins_slave_wait_for_master_timeout = "${var.jenkins_slave_wait_for_master_timeout}"
+    consul_agent_mode                          = "client"
+    consul_cluster_domain                      = "${var.project_consul_domain}"
+    consul_cluster_datacenter                  = "${var.project_consul_datacenter}"
+    consul_cluster_name                        = "${var.project_name}-consul"
+    os_auth_domain_name                        = "${var.os_auth_domain_name}"
+    os_auth_username                           = "${var.os_auth_username}"
+    os_auth_password                           = "${var.os_auth_password}"
+    os_auth_url                                = "${var.os_auth_url}"
+    os_project_id                              = "${var.os_project_id}"
   }
 }
 

@@ -1,3 +1,8 @@
+variable "project_name" {
+  description = "The project this Jenkins slave belong to"
+  type        = "string"
+}
+
 variable "jenkins_slave_group_name" {
   type        = "string"
   description = "The slave group name"
@@ -72,4 +77,39 @@ variable "jenkins_slave_wait_for_master_timeout" {
   type        = "string"
   description = "Timeout in second to wait for Jenkins master to be accessible"
   default     = "600" # 10min
+}
+
+# Project Consul variables
+
+variable "project_consul_domain" {
+  type        = "string"
+  description = "The domain name to use for the Consul cluster"
+}
+
+variable "project_consul_datacenter" {
+  type        = "string"
+  description = "The datacenter name for the consul cluster"
+}
+
+# Auth variables used by consul
+
+variable "os_auth_domain_name" {
+  type    = "string"
+  default = "default"
+}
+
+variable "os_auth_username" {
+  type = "string"
+}
+
+variable "os_auth_password" {
+  type = "string"
+}
+
+variable "os_auth_url" {
+  type = "string"
+}
+
+variable "os_project_id" {
+  type = "string"
 }
