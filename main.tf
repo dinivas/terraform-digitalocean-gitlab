@@ -17,9 +17,11 @@ data "template_file" "master_user_data" {
   template = "${file("${path.module}/template/user-data.tpl")}"
 
   vars = {
+    project_name                               = "${var.project_name}"
     jenkins_master_name                        = "${var.jenkins_master_name}"
     jenkins_master_use_keycloak                = "${var.jenkins_master_use_keycloak}"
-    jenkins_master_keycloak_config             = "${var.jenkins_master_keycloak_config}"
+    jenkins_master_keycloak_host               = "${var.jenkins_master_keycloak_host}"
+    jenkins_master_keycloak_client_id          = "${var.jenkins_master_keycloak_client_id}"
     jenkins_master_register_exporter_to_consul = "${var.jenkins_master_register_exporter_to_consul}"
     consul_agent_mode                          = "client"
     consul_cluster_domain                      = "${var.project_consul_domain}"

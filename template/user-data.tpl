@@ -73,7 +73,14 @@ write_files:
 
         def keycloakSecurityConfig = Jenkins.instance.getExtensionList('org.jenkinsci.plugins.KeycloakSecurityRealm$DescriptorImpl')[0]
         keycloakSecurityConfig.keycloakJson = '''
-        ${jenkins_master_keycloak_config}
+        {
+            "realm": "${project_name}",
+            "auth-server-url": "http://${jenkins_master_keycloak_host}/auth",
+            "ssl-required": "external",
+            "resource": "${jenkins_master_keycloak_client_id}",
+            "public-client": true,
+            "confidential-port": 0
+        }
         '''
         keycloakSecurityConfig.keycloakValidate = true
         keycloakSecurityConfig.save()

@@ -94,9 +94,15 @@ variable "jenkins_master_use_keycloak" {
   default     = "0"
 }
 
-variable "jenkins_master_keycloak_config" {
+variable "jenkins_master_keycloak_host" {
   type        = "string"
-  description = "Keycloak Json config when Auth is delegated to Keycloak"
+  description = "Keycloak host in form host:port"
+  default     = ""
+}
+
+variable "jenkins_master_keycloak_client_id" {
+  type        = "string"
+  description = "Keycloak client_id to use for oauth"
   default     = ""
 }
 
