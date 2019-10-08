@@ -114,7 +114,7 @@ write_files:
         timeout ${jenkins_slave_wait_for_master_timeout} bash -c 'while [[ "$(curl -s -o /dev/null -w ''%%{http_code}'' ${jenkins_master_host}:${jenkins_master_port})" != "200" ]]; do sleep 5; done' || false
 
         # Download slave.jar from master
-        wget "${jenkins_master_scheme}://${jenkins_master_host}:${jenkins_master_port}/jnlpJars/slave.jar" -O /var/run/jenkins/slave.jar
+        wget -q "${jenkins_master_scheme}://${jenkins_master_host}:${jenkins_master_port}/jnlpJars/slave.jar" -O /var/run/jenkins/slave.jar
 
         # Remote create the agent using username & password
         curl -X POST -u ${jenkins_master_username}:${jenkins_master_password} --data-urlencode "script=$(< /var/run/jenkins/add_slave.groovy)" ${jenkins_master_scheme}://${jenkins_master_host}:${jenkins_master_port}/scriptText
