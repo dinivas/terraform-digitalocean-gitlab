@@ -102,7 +102,7 @@ write_files:
  %{ if jenkins_master_register_exporter_to_consul == "1" }
 -   content: |
         {"service":
-            {"name": "jenkins_exporter",
+            {"name": "jenkins-exporter",
             "tags": ["monitor"],
             "port": 9118
             }
