@@ -24,7 +24,7 @@ data "template_file" "slave_user_data" {
       useradd -g jenkins jenkins
       mkdir -p /var/run/jenkins/
     EOT
-    custom_write_files_block = "${data.template_file.slave_custom_user_data.0.rendered}"
+    custom_write_files_block = "${lookup(data.template_file.slave_custom_user_data[count.index], "rendered")}"
     post_configure_script = <<-EOT
       sh -c /etc/register-slave.sh
     EOT
