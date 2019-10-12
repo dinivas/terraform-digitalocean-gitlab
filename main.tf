@@ -10,11 +10,38 @@ data "openstack_networking_subnet_v2" "jenkins_master_subnet" {
   name = "${var.jenkins_master_subnet}"
 }
 
+data "http" "generic_user_data_template" {
+  url = "${var.generic_user_data_file_url}"
+}
 
 data "template_file" "master_user_data" {
   count = "${var.jenkins_master_instance_count}"
 
-  template = "${file("${path.module}/template/user-data.tpl")}"
+  template = "${data.http.generic_user_data_template.body}"
+
+  vars = {
+    consul_agent_mode         = "client"
+    consul_cluster_domain     = "${var.project_consul_domain}"
+    consul_cluster_datacenter = "${var.project_consul_datacenter}"
+    consul_cluster_name       = "${var.project_name}-consul"
+    os_auth_domain_name       = "${var.os_auth_domain_name}"
+    os_auth_username          = "${var.os_auth_username}"
+    os_auth_password          = "${var.os_auth_password}"
+    os_auth_url               = "${var.os_auth_url}"
+    os_project_id             = "${var.os_project_id}"
+
+    pre_configure_script     = <<-EOT
+      useradd -g jenkins jenkins
+    EOT
+    custom_write_files_block = "${data.template_file.master_custom_user_data.0.rendered}"
+    post_configure_script    = ""
+  }
+}
+
+data "template_file" "master_custom_user_data" {
+  count = "${var.jenkins_master_instance_count}"
+
+  template = "${file("${path.module}/templates/jenkins-master-user-data.tpl")}"
 
   vars = {
     project_name                               = "${var.project_name}"
@@ -23,15 +50,6 @@ data "template_file" "master_user_data" {
     jenkins_master_keycloak_host               = "${var.jenkins_master_keycloak_host}"
     jenkins_master_keycloak_client_id          = "${var.jenkins_master_keycloak_client_id}"
     jenkins_master_register_exporter_to_consul = "${var.jenkins_master_register_exporter_to_consul}"
-    consul_agent_mode                          = "client"
-    consul_cluster_domain                      = "${var.project_consul_domain}"
-    consul_cluster_datacenter                  = "${var.project_consul_datacenter}"
-    consul_cluster_name                        = "${var.project_name}-consul"
-    os_auth_domain_name                        = "${var.os_auth_domain_name}"
-    os_auth_username                           = "${var.os_auth_username}"
-    os_auth_password                           = "${var.os_auth_password}"
-    os_auth_url                                = "${var.os_auth_url}"
-    os_project_id                              = "${var.os_project_id}"
   }
 }
 

@@ -56,8 +56,8 @@ variable "jenkins_master_subnet" {
 }
 
 variable "jenkins_master_security_group_rules" {
-  type = list(map(any))
-  default = []
+  type        = list(map(any))
+  default     = []
   description = "The definition os security groups to associate to instance. Only one is allowed"
 }
 
@@ -145,4 +145,9 @@ variable "os_auth_url" {
 
 variable "os_project_id" {
   type = "string"
+}
+
+variable "generic_user_data_file_url" {
+  type    = "string"
+  default = "https://raw.githubusercontent.com/dinivas/terraform-openstack-shared/master/templates/generic-user-data.tpl"
 }
