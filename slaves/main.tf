@@ -21,6 +21,7 @@ data "template_file" "slave_user_data" {
     os_project_id             = "${var.os_project_id}"
 
     pre_configure_script = <<-EOT
+      groupadd jenkins
       useradd -g jenkins jenkins
       mkdir -p /var/run/jenkins/
     EOT
