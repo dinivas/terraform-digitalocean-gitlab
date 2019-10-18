@@ -56,21 +56,22 @@ data "template_file" "master_custom_user_data" {
 module "jenkins_master_instance" {
   source = "github.com/dinivas/terraform-openstack-instance"
 
-  instance_name                 = "${var.jenkins_master_name}"
-  instance_count                = "${var.jenkins_master_instance_count}"
-  image_name                    = "${var.jenkins_master_image_name}"
-  flavor_name                   = "${var.jenkins_master_compute_flavor_name}"
-  keypair                       = "${var.jenkins_master_keypair_name}"
-  network_ids                   = ["${data.openstack_networking_network_v2.jenkins_master_network.0.id}"]
-  subnet_ids                    = ["${data.openstack_networking_subnet_v2.jenkins_master_subnet.*.id}"]
-  instance_security_group_name  = "${var.jenkins_master_name}-sg"
-  instance_security_group_rules = "${var.jenkins_master_security_group_rules}"
-  security_groups_to_associate  = "${var.jenkins_master_security_groups_to_associate}"
-  user_data                     = "${data.template_file.master_user_data.0.rendered}"
-  metadata                      = "${merge(var.jenkins_master_metadata, map("consul_cluster_name", format("%s-%s", var.project_name, "consul")), map("project", var.project_name))}"
-  enabled                       = "${var.enable_jenkins_master}"
-  availability_zone             = "${var.jenkins_master_availability_zone}"
-
+  instance_name                      = "${var.jenkins_master_name}"
+  instance_count                     = "${var.jenkins_master_instance_count}"
+  image_name                         = "${var.jenkins_master_image_name}"
+  flavor_name                        = "${var.jenkins_master_compute_flavor_name}"
+  keypair                            = "${var.jenkins_master_keypair_name}"
+  network_ids                        = ["${data.openstack_networking_network_v2.jenkins_master_network.0.id}"]
+  subnet_ids                         = ["${data.openstack_networking_subnet_v2.jenkins_master_subnet.*.id}"]
+  instance_security_group_name       = "${var.jenkins_master_name}-sg"
+  instance_security_group_rules      = "${var.jenkins_master_security_group_rules}"
+  security_groups_to_associate       = "${var.jenkins_master_security_groups_to_associate}"
+  user_data                          = "${data.template_file.master_user_data.0.rendered}"
+  metadata                           = "${merge(var.jenkins_master_metadata, map("consul_cluster_name", format("%s-%s", var.project_name, "consul")), map("project", var.project_name))}"
+  enabled                            = "${var.enable_jenkins_master}"
+  availability_zone                  = "${var.jenkins_master_availability_zone}"
+  execute_on_destroy_instance_script = "${var.execute_on_destroy_jenkins_master_script}"
+  ssh_via_bastion_config             = "${var.ssh_via_bastion_config}"
 }
 
 // Conditional floating ip

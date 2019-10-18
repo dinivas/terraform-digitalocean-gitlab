@@ -20,13 +20,13 @@ data "template_file" "slave_user_data" {
     os_auth_url               = "${var.os_auth_url}"
     os_project_id             = "${var.os_project_id}"
 
-    pre_configure_script = <<-EOT
+    pre_configure_script     = <<-EOT
       groupadd jenkins
       useradd -g jenkins jenkins
       mkdir -p /var/run/jenkins/
     EOT
     custom_write_files_block = "${lookup(data.template_file.slave_custom_user_data[count.index], "rendered")}"
-    post_configure_script = <<-EOT
+    post_configure_script    = <<-EOT
       sh -c /etc/register-slave.sh
     EOT
   }
@@ -65,4 +65,26 @@ resource "openstack_compute_instance_v2" "slave_group" {
     name = "${var.jenkins_slave_network}"
   }
   availability_zone = "${var.jenkins_slave_availability_zone}"
+
+  connection {
+    type        = "ssh"
+    user        = "centos"
+    port        = 22
+    host        = "${self.access_ip_v4}"
+    private_key = "${lookup(var.ssh_via_bastion_config, "host_private_key")}"
+    agent       = false
+
+    bastion_host        = "${lookup(var.ssh_via_bastion_config, "bastion_host")}"
+    bastion_port        = 22
+    bastion_user        = "centos"
+    bastion_private_key = "${lookup(var.ssh_via_bastion_config, "bastion_private_key")}"
+  }
+
+  provisioner "remote-exec" {
+    when = "destroy"
+    inline = [
+      "${var.execute_on_destroy_jenkins_node_script}",
+    ]
+    on_failure = "continue"
+  }
 }
