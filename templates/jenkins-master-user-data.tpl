@@ -47,4 +47,15 @@
     owner: consul:bin
     path: /etc/consul/consul.d/jenkins_exporter-service.json
     permissions: '644'
+
+-   content: |
+        [DEFAULT]
+        JENKINS_SERVER = http://localhost:8080
+        JENKINS_USERNAME = ${jenkins_master_username}
+        JENKINS_PASSWORD = ${jenkins_master_password}
+
+    owner: jenkins:jenkins
+    path: /opt/jenkins-exporter/config.ini
+    permissions: '644'
+
 %{ endif }

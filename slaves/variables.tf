@@ -116,7 +116,7 @@ variable "os_project_id" {
 
 variable "generic_user_data_file_url" {
   type    = "string"
-  default = "https://raw.githubusercontent.com/dinivas/terraform-openstack-shared/master/templates/generic-user-data.tpl"
+  default = "https://raw.githubusercontent.com/dinivas/terraform-shared/master/templates/generic-user-data.tpl"
 }
 
 variable "execute_on_destroy_jenkins_node_script" {
