@@ -46,13 +46,8 @@
         # Download slave.jar from master
         wget -q "${jenkins_master_scheme}://${jenkins_master_host}:${jenkins_master_port}/jnlpJars/slave.jar" -O /var/run/jenkins/slave.jar
 
-        # Remote create the agent using username & password
+        # Remote create the agent using username & password/api token
         curl -X POST -u ${jenkins_master_username}:${jenkins_master_password} --data-urlencode "script=$(< /var/run/jenkins/add_slave.groovy)" ${jenkins_master_scheme}://${jenkins_master_host}:${jenkins_master_port}/scriptText
-
-        # Remote create the agent using keycloak token
-        # kctoken_query=(curl -s -d "client_id=jenkins" -d "username=admin" -d "password=admin" -d "grant_type=password" http://d3c0fb86.ngrok.io/auth/realms/dnv/protocol/openid-connect/token )
-        # kctoken=$("$${kctoken_query[@]}" | jq -r ".access_token" -)
-        # curl -H "Authorisation: Bearer $kctoken" -X POST --data-urlencode "script=$(< /var/run/jenkins/add_slave.groovy)" ${jenkins_master_scheme}://${jenkins_master_host}:${jenkins_master_port}/scriptText
 
         touch /etc/default/jenkins-slave
 
