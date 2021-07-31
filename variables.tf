@@ -107,9 +107,9 @@ variable "jenkins_master_register_exporter_to_consul" {
 }
 
 variable "jenkins_master_enable_logging_graylog" {
-  type = number
+  type        = number
   description = "Should graylog output be enable on this host"
-  default = 0
+  default     = 0
 }
 
 # Project Consul variables
@@ -130,8 +130,9 @@ variable "generic_user_data_file_url" {
 }
 
 variable "execute_on_destroy_jenkins_master_script" {
-  type    = string
-  default = ""
+  type    = list(string)
+  description = "List of inline commands called before instance destruction"
+  default = ["consul leave"]
 }
 
 variable "ssh_via_bastion_config" {

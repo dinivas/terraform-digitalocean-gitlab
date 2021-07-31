@@ -108,8 +108,9 @@ variable "generic_user_data_file_url" {
 }
 
 variable "execute_on_destroy_jenkins_node_script" {
-  type    = string
-  default = ""
+  type        = list(string)
+  description = "List of inline commands called before instance destruction"
+  default     = ["/var/run/jenkins/remove_slave.sh", "consul leave"]
 }
 
 variable "ssh_via_bastion_config" {

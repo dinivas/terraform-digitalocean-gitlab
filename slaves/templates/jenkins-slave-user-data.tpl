@@ -38,6 +38,23 @@
     path: /var/run/jenkins/add_slave.groovy
     permissions: '755'
 -   content: |
+        import hudson.model.Node
+        import hudson.slaves.*
+        import jenkins.model.Jenkins
+
+        Node node =Jenkins.instance.getNode("${jenkins_node_name}")
+        Jenkins.instance.removeNode(node)
+        println "Agent ${jenkins_node_name} removed"
+    path: /var/run/jenkins/remove_slave.groovy
+    permissions: '755'
+-   content: |
+        #!/bin/sh
+
+        # Remote remove the Node using username & password/api token
+        curl -X POST -u ${jenkins_master_username}:${jenkins_master_password} --data-urlencode "script=$(< /var/run/jenkins/remove_slave.groovy)" ${jenkins_master_scheme}://${jenkins_master_host}:${jenkins_master_port}/scriptText
+    path: /var/run/jenkins/remove_slave.sh
+    permissions: '755'
+-   content: |
         #!/bin/sh
 
         # Wait for master to be accessible (http: 200), used when master and slave are created at the same time
