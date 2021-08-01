@@ -59,7 +59,7 @@ data "template_file" "master_custom_user_data" {
 resource "digitalocean_droplet" "jenkins_master_instance" {
   count = var.jenkins_master_instance_count
 
-  name               = format("%s-%s-%s", var.project_name, var.jenkins_master_name, count.index)
+  name               = format("%s-%s", var.jenkins_master_name, count.index)
   image              = var.jenkins_master_image_name
   size               = var.jenkins_master_compute_flavor_name
   ssh_keys           = [data.digitalocean_ssh_key.jenkins_master.0.id]
