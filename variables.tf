@@ -140,6 +140,9 @@ variable "ssh_via_bastion_config" {
   default     = {}
 }
 
+variable "host_private_key" {}
+variable "bastion_private_key" {}
+
 variable "do_api_token" {
   type = string
 }
