@@ -1,4 +1,4 @@
-variable "enable_jenkins_master" {
+variable "enable_gitlab_server" {
   type    = string
   default = "1"
 }
@@ -8,60 +8,60 @@ variable "project_name" {
   type        = string
 }
 
-variable "jenkins_master_name" {
+variable "gitlab_server_name" {
   description = "The name of the master instance"
   type        = string
 }
 
-variable "jenkins_master_instance_count" {
+variable "gitlab_server_instance_count" {
   description = "Number of master instances"
   default     = 1
 }
 
-variable "jenkins_master_image_name" {
+variable "gitlab_server_image_name" {
   description = "The Image name of the master instance"
   type        = string
 }
 
-variable "jenkins_master_compute_flavor_name" {
+variable "gitlab_server_compute_flavor_name" {
   description = "The Flavor name of the master instance"
   type        = string
 }
 
-variable "jenkins_master_keypair_name" {
+variable "gitlab_server_keypair_name" {
   description = "The Keypair name of the master instance"
   type        = string
 }
 
-variable "jenkins_master_floating_ip_pool" {
+variable "gitlab_server_floating_ip_pool" {
   description = "The floating Ip pool of the master instance"
   type        = string
   default     = ""
 }
 
-variable "jenkins_master_availability_zone" {
+variable "gitlab_server_availability_zone" {
   description = "The availability zone"
   type        = string
   default     = "null"
 }
 
-variable "jenkins_master_network" {
+variable "gitlab_server_network" {
   description = "The Network name of the master instance"
   type        = string
 }
-variable "jenkins_master_security_group_rules" {
+variable "gitlab_server_security_group_rules" {
   type        = list(map(any))
   default     = []
   description = "The definition os security groups to associate to instance. Only one is allowed"
 }
 
-variable "jenkins_master_security_groups_to_associate" {
+variable "gitlab_server_security_groups_to_associate" {
   type        = list(string)
   default     = []
   description = "List of existing security groups to associate to Jenkins masters."
 }
 
-variable "jenkins_master_metadata" {
+variable "gitlab_server_metadata" {
   default = {}
 }
 
@@ -70,43 +70,43 @@ variable "jenkins_external_master_url" {
   type        = string
   default     = ""
 }
-variable "jenkins_master_username" {
+variable "gitlab_server_username" {
   description = "The username of the Jenkins master"
   type        = string
   default     = ""
 }
 
-variable "jenkins_master_password" {
+variable "gitlab_server_password" {
   description = "The password of the Jenkins master"
   type        = string
   default     = ""
 }
 
-variable "jenkins_master_use_keycloak" {
+variable "gitlab_server_use_keycloak" {
   type        = string
   description = "Delegate Jenkins Auth to Keycloak"
   default     = "0"
 }
 
-variable "jenkins_master_keycloak_host" {
+variable "gitlab_server_keycloak_host" {
   type        = string
   description = "Keycloak host in form host:port"
   default     = ""
 }
 
-variable "jenkins_master_keycloak_client_id" {
+variable "gitlab_server_keycloak_client_id" {
   type        = string
   description = "Keycloak client_id to use for oauth"
   default     = ""
 }
 
-variable "jenkins_master_register_exporter_to_consul" {
+variable "gitlab_server_register_exporter_to_consul" {
   type        = string
   description = "Register Jenkins exporter to consul (default true)"
   default     = "1"
 }
 
-variable "jenkins_master_enable_logging_graylog" {
+variable "gitlab_server_enable_logging_graylog" {
   type        = number
   description = "Should graylog output be enable on this host"
   default     = 0
@@ -129,7 +129,7 @@ variable "generic_user_data_file_url" {
   default = "https://raw.githubusercontent.com/dinivas/terraform-shared/master/templates/generic-user-data.tpl"
 }
 
-variable "execute_on_destroy_jenkins_master_script" {
+variable "execute_on_destroy_gitlab_server_script" {
   type    = list(string)
   description = "List of inline commands called before instance destruction"
   default = ["consul leave"]
