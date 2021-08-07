@@ -50,14 +50,15 @@ data "template_file" "gitlab_runner_custom_user_data" {
   template = file("${path.module}/templates/gitlab-runner-user-data.tpl")
 
   vars = {
-    gitlab_runner_group_gitlab_url   = var.gitlab_runner_group_gitlab_url
-    gitlab_runner_group_gitlab_token = var.gitlab_runner_group_gitlab_token
-    gitlab_runner_group_executor     = var.gitlab_runner_group_executor
-    gitlab_runner_group_name         = format("%s-%s", var.gitlab_runner_group_name, count.index)
-    gitlab_runner_description        = format("Dinivas managed Runner: %s-%s", var.gitlab_runner_group_name, count.index)
-    gitlab_runner_group_executor     = var.gitlab_runner_group_executor
-    gitlab_runner_group_tags         = join(" ", split(",", var.gitlab_runner_group_tags))
-    gitlab_runner_group_docker_image = var.gitlab_runner_group_docker_image
+    gitlab_runner_group_gitlab_url                = var.gitlab_runner_group_gitlab_url
+    gitlab_runner_group_gitlab_token              = var.gitlab_runner_group_gitlab_token
+    gitlab_runner_group_executor                  = var.gitlab_runner_group_executor
+    gitlab_runner_group_name                      = format("%s-%s", var.gitlab_runner_group_name, count.index)
+    gitlab_runner_description                     = format("Dinivas managed Runner: %s-%s", var.gitlab_runner_group_name, count.index)
+    gitlab_runner_group_executor                  = var.gitlab_runner_group_executor
+    gitlab_runner_group_tags                      = join(" ", split(",", var.gitlab_runner_group_tags))
+    gitlab_runner_group_docker_image              = var.gitlab_runner_group_docker_image
+    gitlab_runner_group_prometheus_listen_address = var.gitlab_runner_group_prometheus_listen_address
   }
 
 }

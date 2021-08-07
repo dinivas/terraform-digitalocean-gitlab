@@ -78,7 +78,7 @@ variable "gitlab_runner_security_groups_to_associate" {
 variable "gitlab_runner_group_prometheus_listen_address" {
   type        = string
   description = "Prometheus listen adress"
-  default     = "localhost:8787" # 10min
+  default     = ":9252"
 }
 
 # Project Consul variables
