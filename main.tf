@@ -68,6 +68,14 @@ resource "digitalocean_droplet" "gitlab_server_instance" {
   private_networking = true
 }
 
+resource "consul_keys" "gitlab_grafana_dashboard_provisionning" {
+  key {
+    path   = format("dinivas-%s/%s", var.project_name, "grafana/dashboard/build/gitlab/gitlab-provisioning.yml")
+    value  = file("${path.module}/templates/gitlab-grafana-provisioning.yml")
+    delete = true
+  }
+}
+
 resource "null_resource" "gitlab_server_instance_consul_client_leave" {
   count = var.gitlab_server_instance_count * var.enable_gitlab_server
 

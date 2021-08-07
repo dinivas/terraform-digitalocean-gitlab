@@ -1,0 +1,11 @@
+apiVersion: 1
+
+providers:
+- name: 'dinivas-gitlab'
+  orgId: 1
+  folder: 'Gitlab'
+  type: file
+  disableDeletion: false
+  editable: true
+  options:
+    path: /var/lib/grafana/dashboards/build/gitlab

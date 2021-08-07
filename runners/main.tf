@@ -77,6 +77,14 @@ resource "digitalocean_droplet" "gitlab_runner" {
 
 }
 
+resource "consul_keys" "gitlab_runner_grafana_dashboard" {
+  key {
+    path   = format("dinivas-%s/%s", var.project_name, "grafana/dashboard/build/gitlab/gitlab-runner.json")
+    value  = file("${path.module}/templates/gitlab-runner-grafana-dashboard.json")
+    delete = true
+  }
+}
+
 resource "null_resource" "gitlab_runner_instance_consul_client_leave" {
   count = var.gitlab_runner_group_instance_count
 

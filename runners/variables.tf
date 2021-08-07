@@ -1,5 +1,5 @@
 variable "project_name" {
-  description = "The project this Jenkins runner belong to"
+  description = "The project this Gitlab runner belong to"
   type        = string
 }
 
